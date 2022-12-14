@@ -19,9 +19,9 @@ import {
 } from "three";
 
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { VRButton } from "three/examples/jsm/webxr/VRButton.js";
 import CubeRock from "./terrainjs/rocks/CubeRock";
 import CylinderRock from "./terrainjs/rocks/CylinderRock";
-import terrain_size from "./terrainjs/GrassTerrain";
 import GrassTerrain from "./terrainjs/GrassTerrain";
 import Rock from "./terrainjs/rocks/Rock";
 import Tree from "./terrainjs/Tree";
@@ -36,7 +36,7 @@ class App {
       70,
       window.innerWidth / window.innerHeight,
       0.01,
-      100
+      1000
     );
     camera.position.y = 2;
     camera.position.z = 30;
@@ -50,27 +50,32 @@ class App {
     terrain = new GrassTerrain(scene);
     const central_tree = new Tree(scene, 20, 1, 4, 40);
     central_tree.position.set(0, 0, 0);
-    const randomPosition = (e) => e.position.set(Math.random() * -10000 + 5000, 0, Math.random() * -5000 + 2500);
-    for(let i=0; i<30000; ++i) {
+    const randomPosition = (e) =>
+      e.position.set(
+        Math.random() * -10000 + 5000,
+        0,
+        Math.random() * -5000 + 2500
+      );
+    for (let i = 0; i < 3000; ++i) {
       const radius = Math.random() * 10 + 2;
-      const height = radius * 2; 
+      const height = radius * 2;
       const tree = new Tree(scene, radius, 1, radius / 3 + 1, height);
       randomPosition(tree);
     }
-    for(let i=0; i<40000; ++i) {
+    for (let i = 0; i < 4000; ++i) {
       const size = Math.random() * 5 + 1;
       const rock = new CubeRock(scene, size);
       randomPosition(rock);
     }
-    for(let i=0; i<20000; ++i) {
+    for (let i = 0; i < 2000; ++i) {
       const radius = Math.random() * 10 + 1;
       const rock = new Rock(scene, radius);
       randomPosition(rock);
     }
-    for(let i=0; i<2000; ++i) {
+    for (let i = 0; i < 200; ++i) {
       const radius = Math.random() * 30 + 1;
-      const bradius = radius * (11/2) + 2;
-      const height =  radius * 8 + 8;
+      const bradius = radius * (11 / 2) + 2;
+      const height = radius * 8 + 8;
       const rock = new CylinderRock(scene, radius, bradius, height);
       randomPosition(rock);
     }
@@ -79,10 +84,16 @@ class App {
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
-
+    document.body.appendChild(VRButton.createButton(renderer));
+    renderer.xr.enabled = true;
+    renderer.setAnimationLoop(() => {
+      animate();
+    });
     window.addEventListener("resize", onWindowResize, false);
 
-    addEventListener("keydown", (e) => {movement(e)});
+    addEventListener("keydown", (e) => {
+      movement(e);
+    });
     // const dir = camera.getWorldDirection(new Vector3());
     const controls = new OrbitControls(camera, renderer.domElement);
     animate();
@@ -121,7 +132,7 @@ function onWindowResize() {
 }
 
 function animate() {
-  requestAnimationFrame(animate);
+  // requestAnimationFrame(animate);
   renderer.render(scene, camera);
 }
 

@@ -1,4 +1,10 @@
-import { DodecahedronGeometry, Mesh, MeshBasicMaterial, MeshDepthMaterial, MeshPhongMaterial } from "three";
+import {
+  DodecahedronGeometry,
+  Mesh,
+  MeshBasicMaterial,
+  MeshDepthMaterial,
+  MeshPhongMaterial,
+} from "three";
 
 export default class Rock extends Mesh {
   constructor(scene, radius = 1, detail = 0, color = 0x5a4d41) {
