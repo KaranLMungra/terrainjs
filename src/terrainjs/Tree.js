@@ -9,7 +9,8 @@ export default class Tree extends Group {
         const tgeometry = new CylinderGeometry(trunkRadius, trunkRadius, trunkHeight);
         const tmaterial = new MeshPhongMaterial({color: trunkColor});
         const trunk = new Mesh(tgeometry, tmaterial);
-        leaves.position.y = trunk.position.y + trunkHeight - radius;
+        trunk.position.y = trunkHeight / 2 - 1;
+        leaves.position.y = trunkHeight;
         this.add(trunk);
         this.add(leaves);
         scene.add(this);
