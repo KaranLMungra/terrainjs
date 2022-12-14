@@ -18,11 +18,12 @@ import {
 } from "three";
 
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import CubeRock from "./terrainjs/CubeRock";
-import CylinderRock from "./terrainjs/CylinderRock";
+import CubeRock from "./terrainjs/rocks/CubeRock";
+import CylinderRock from "./terrainjs/rocks/CylinderRock";
 import terrain_size from "./terrainjs/GrassTerrain";
 import GrassTerrain from "./terrainjs/GrassTerrain";
-import Rock from "./terrainjs/Rock";
+import Rock from "./terrainjs/rocks/Rock";
+import Tree from "./terrainjs/Tree";
 
 let camera, scene, renderer, light1, terrain;
 
@@ -39,7 +40,7 @@ class App {
     camera.position.z = 4;
     camera.add(light);
     scene = new Scene();
-    const rock = new CylinderRock(scene, 1);
+    // const rock = new CylinderRock(scene, 1);
     // rock.position.set()
     scene.background = new Color(0x87ceeb);
     scene.add(camera);
@@ -47,6 +48,7 @@ class App {
     light1.position.set(-10, 50, 10);
     scene.add(light1);
     terrain = new GrassTerrain(scene);
+    const tree = new Tree(scene);
     //   const verticesOfCube = [
     //     -1,-1,-1,    1,-1,-1,    1, 1,-1,    -1, 1,-1,
     //     -1,-1, 1,    1,-1, 1,    1, 1, 1,    -1, 1, 1,
