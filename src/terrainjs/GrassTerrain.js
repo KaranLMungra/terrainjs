@@ -1,4 +1,4 @@
-import { Mesh, MeshBasicMaterial, PlaneGeometry, RepeatWrapping, Vector3 } from "three";
+import { Mesh, MeshBasicMaterial, MeshDistanceMaterial, PlaneGeometry, RepeatWrapping, Vector3 } from "three";
 
 const terrain_size = 10000;
 // export default terrain_size;
