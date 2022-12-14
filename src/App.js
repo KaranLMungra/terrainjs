@@ -10,6 +10,7 @@ import {
   MeshPhongMaterial,
   PerspectiveCamera,
   PointLight,
+  PolyhedronGeometry,
   RepeatWrapping,
   Scene,
   TextureLoader,
@@ -17,6 +18,8 @@ import {
 } from "three";
 
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import CubeRock from "./terrainjs/CubeRock";
+import CylinderRock from "./terrainjs/CylinderRock";
 import terrain_size from "./terrainjs/GrassTerrain";
 import GrassTerrain from "./terrainjs/GrassTerrain";
 import Rock from "./terrainjs/Rock";
@@ -36,16 +39,33 @@ class App {
     camera.position.z = 4;
     camera.add(light);
     scene = new Scene();
-    const rock = new Rock(scene, { x: 0, y: 0, z: -10 }, 0.5, 1);
+    const rock = new CylinderRock(scene, 1);
     // rock.position.set()
     scene.background = new Color(0x87ceeb);
     scene.add(camera);
     light1 = new DirectionalLight(0xffffff, 0.5);
     light1.position.set(-10, 50, 10);
     scene.add(light1);
-    terrain = new GrassTerrain();
-    scene.add(terrain);
+    terrain = new GrassTerrain(scene);
+    //   const verticesOfCube = [
+    //     -1,-1,-1,    1,-1,-1,    1, 1,-1,    -1, 1,-1,
+    //     -1,-1, 1,    1,-1, 1,    1, 1, 1,    -1, 1, 1,
+    // ];
 
+    // const indicesOfFaces = [
+    //     2,1,0,    0,3,2,
+    //     0,4,7,    7,3,0,
+    //     0,1,5,    5,4,0,
+    //     1,2,6,    6,5,1,
+    //     2,3,7,    7,6,2,
+    //     4,5,6,    6,7,4
+    // ];
+
+    // const geometry = new PolyhedronGeometry( verticesOfCube, indicesOfFaces, 6, 2 );
+    // const material = new MeshPhongMaterial({color: 0x00ff00});
+    // const tree_leaver = new Mesh(geometry, material);
+    // tree_leaver.position.set(0, 5, -5);
+    // scene.add(tree_leaver);
     renderer = new WebGLRenderer({ antialias: true });
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -59,13 +79,13 @@ class App {
       } else if (e.key === "s") {
         camera.position.z += 0.1;
       } else if (e.key === "q") {
-		if(camera.rotation.x < 0.70) {
-		 	camera.rotateX(0.01);
-		}
+        if (camera.rotation.x < 0.7) {
+          camera.rotateX(0.01);
+        }
       } else if (e.key === "e") {
-		if(camera.rotation.x > -0.70) {
-        	camera.rotateX(-0.01);
-		}
+        if (camera.rotation.x > -0.7) {
+          camera.rotateX(-0.01);
+        }
       } else if (e.key === "a") {
         camera.rotateY(0.01);
       } else if (e.key === "d") {
